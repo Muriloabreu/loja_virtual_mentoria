@@ -3,6 +3,7 @@ package com.api.lojavirtual.models;
 import java.io.Serializable;
 import java.util.Objects;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -20,7 +21,7 @@ public class MarcaProduto implements Serializable{
 	@Id
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seq_marca_produto")
 	private Long id;
-	
+	@Column(name = "nome_desc", nullable = false)
 	private String nomeDesc;
 	
 	/* Constructor */
