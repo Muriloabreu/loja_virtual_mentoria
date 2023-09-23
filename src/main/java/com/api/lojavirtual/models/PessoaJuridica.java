@@ -1,5 +1,69 @@
 package com.api.lojavirtual.models;
 
-public class PessoaJuridica {
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.PrimaryKeyJoinColumn;
+import javax.persistence.Table;
+
+@Entity
+@Table(name = "pessoa_juridica")
+@PrimaryKeyJoinColumn(name = "id")
+public class PessoaJuridica extends Pessoa {
+
+	private static final long serialVersionUID = 1L;
+	
+	@Column(nullable = false)
+	private String cnpf;
+	@Column(nullable = false)
+	private String inscEstadual;
+	@Column(nullable = false)
+	private String inscMunicipal;
+	@Column(nullable = false)
+	private String nomeFantasia;
+	@Column(nullable = false)
+	private String razaoSocial;
+	@Column(nullable = false)
+	private String categoria;
+	
+	/* Accessor Methods */
+	
+	public String getCnpf() {
+		return cnpf;
+	}
+	public void setCnpf(String cnpf) {
+		this.cnpf = cnpf;
+	}
+	public String getInscEstadual() {
+		return inscEstadual;
+	}
+	public void setInscEstadual(String inscEstadual) {
+		this.inscEstadual = inscEstadual;
+	}
+	public String getInscMunicipal() {
+		return inscMunicipal;
+	}
+	public void setInscMunicipal(String inscMunicipal) {
+		this.inscMunicipal = inscMunicipal;
+	}
+	public String getNomeFantasia() {
+		return nomeFantasia;
+	}
+	public void setNomeFantasia(String nomeFantasia) {
+		this.nomeFantasia = nomeFantasia;
+	}
+	public String getRazaoSocial() {
+		return razaoSocial;
+	}
+	public void setRazaoSocial(String razaoSocial) {
+		this.razaoSocial = razaoSocial;
+	}
+	public String getCategoria() {
+		return categoria;
+	}
+	public void setCategoria(String categoria) {
+		this.categoria = categoria;
+	}
+	
+	
 
 }
