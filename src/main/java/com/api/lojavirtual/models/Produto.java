@@ -51,6 +51,8 @@ public class Produto implements Serializable{
 	
 	private Boolean alertaQtdEstoque = Boolean.FALSE;
 	
+	private Boolean ativo;
+	
 	private Integer qtdClique = 0;
 	
 	
@@ -63,7 +65,7 @@ public class Produto implements Serializable{
 
 	public Produto(Long id, String tipoUnidade, String nome, String descricao, Double peso, Double largura,
 			Double altura, Double profundidade, BigDecimal valorVenda, Integer qtdEstoque, Integer qtdAlertaEstoque,
-			String linkYoutube, Boolean alertaQtdEstoque, Integer qtdClique) {
+			String linkYoutube, Boolean alertaQtdEstoque, Integer qtdClique, Boolean ativo) {
 		this.id = id;
 		this.tipoUnidade = tipoUnidade;
 		this.nome = nome;
@@ -78,6 +80,7 @@ public class Produto implements Serializable{
 		this.linkYoutube = linkYoutube;
 		this.alertaQtdEstoque = alertaQtdEstoque;
 		this.qtdClique = qtdClique;
+		this.ativo = ativo;
 	}
 
 	/* Accessor Methods */
@@ -220,15 +223,20 @@ public class Produto implements Serializable{
 	public void setQtdClique(Integer qtdClique) {
 		this.qtdClique = qtdClique;
 	}
-
+	public Boolean getAtivo() {
+		return ativo;
+	}
+	public void setAtivo(Boolean ativo) {
+		this.ativo = ativo;
+	}
 
 	@Override
 	public String toString() {
 		return "Produto [id=" + id + ", tipoUnidade=" + tipoUnidade + ", nome=" + nome + ", descricao=" + descricao
 				+ ", peso=" + peso + ", largura=" + largura + ", altura=" + altura + ", profundidade=" + profundidade
 				+ ", valorVenda=" + valorVenda + ", qtdEstoque=" + qtdEstoque + ", qtdAlertaEstoque=" + qtdAlertaEstoque
-				+ ", linkYoutube=" + linkYoutube + ", alertaQtdEstoque=" + alertaQtdEstoque + ", qtdClique=" + qtdClique
-				+ "]";
+				+ ", linkYoutube=" + linkYoutube + ", alertaQtdEstoque=" + alertaQtdEstoque + ", ativo=" + ativo
+				+ ", qtdClique=" + qtdClique + "]";
 	}
 
 
