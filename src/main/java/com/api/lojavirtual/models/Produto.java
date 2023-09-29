@@ -51,7 +51,7 @@ public class Produto implements Serializable{
 	
 	private Boolean alertaQtdEstoque = Boolean.FALSE;
 	
-	private Boolean ativo;
+	private Boolean ativo = Boolean.TRUE;
 	
 	private Integer qtdClique = 0;
 	
