@@ -37,6 +37,8 @@ public class ImagemProduto implements Serializable{
 	@JoinColumn(name = "produto_id", nullable = false, foreignKey = @ForeignKey(value = ConstraintMode.CONSTRAINT, name = "produto_fk") )
 	private Produto produto;
 	
+	/* Constructor */
+	
 	public ImagemProduto() {
 	}
 
@@ -46,6 +48,8 @@ public class ImagemProduto implements Serializable{
 		this.imagemMiniaura = imagemMiniaura;
 		this.produto = produto;
 	}
+	
+	/* Accessor Methods */
 
 	public Long getId() {
 		return id;
