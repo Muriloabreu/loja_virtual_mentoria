@@ -14,6 +14,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
@@ -43,6 +44,11 @@ public class Usuario implements UserDetails{
 	
 	@Temporal(TemporalType.DATE)
 	private Date dataAtualSenha;
+	
+	@ManyToOne(targetEntity = Pessoa.class)
+	@JoinColumn(name = "pessoa_id", nullable = false, 
+	foreignKey = @ForeignKey(value = ConstraintMode.CONSTRAINT, name = "paessoa_fk"))
+	private Pessoa pessoa;
 	
 	/* - FetchType.LAZY só carrega os dados quando precisar */
 	@OneToMany(fetch = FetchType.LAZY)
@@ -95,6 +101,12 @@ public class Usuario implements UserDetails{
 
 	public void setAcessos(List<Acesso> acessos) {
 		this.acessos = acessos;
+	}
+	public Pessoa getPessoa() {
+		return pessoa;
+	}
+	public void setPessoa(Pessoa pessoa) {
+		this.pessoa = pessoa;
 	}
 
 	/*São os acessos do usuário ROLE_ADMIN OU ROLE_VISITANTE*/
