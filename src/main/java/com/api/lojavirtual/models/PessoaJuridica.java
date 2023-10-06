@@ -16,13 +16,13 @@ public class PessoaJuridica extends Pessoa {
 	private String cnpf;
 	@Column(nullable = false)
 	private String inscEstadual;
-	@Column(nullable = false)
+	
 	private String inscMunicipal;
 	@Column(nullable = false)
 	private String nomeFantasia;
 	@Column(nullable = false)
 	private String razaoSocial;
-	@Column(nullable = false)
+	
 	private String categoria;
 	
 	/* Accessor Methods */
