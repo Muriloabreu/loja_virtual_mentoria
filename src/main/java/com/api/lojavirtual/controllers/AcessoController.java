@@ -10,7 +10,12 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.api.lojavirtual.models.Acesso;
+import com.api.lojavirtual.repositories.AcessoRepository;
 import com.api.lojavirtual.services.AcessoService;
+
+
+
+
 
 @Controller
 @RestController
@@ -18,6 +23,8 @@ public class AcessoController {
 	
 	@Autowired
 	AcessoService acessoService;
+	@Autowired
+	AcessoRepository acessoRepository;
 	
 	@ResponseBody
 	@PostMapping(value = "/salvarAcesso")
@@ -27,5 +34,14 @@ public class AcessoController {
 		
 		return new ResponseEntity<Acesso>(acessoSalvo, HttpStatus.OK);
 	}
-
+	
+	
+	@ResponseBody
+	@PostMapping(value = "/deleteAcesso")
+	public ResponseEntity<?>  deleteAcesso(@RequestBody Acesso acesso) {
+		
+		 acessoRepository.deleteById(acesso.getId());
+		
+		return new ResponseEntity("Acesso removido!" ,HttpStatus.OK);
+	}
 }
