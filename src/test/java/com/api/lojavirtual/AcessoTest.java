@@ -18,6 +18,7 @@ import com.api.lojavirtual.controllers.AcessoController;
 import com.api.lojavirtual.models.Acesso;
 import com.api.lojavirtual.repositories.AcessoRepository;
 import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import junit.framework.TestCase;
@@ -36,8 +37,8 @@ public class AcessoTest extends TestCase {
 	
 	
 	/*TESTE END-POINT SALVAR*/
-	//@Test
-	@Ignore
+	@Test
+	//@Ignore
 	public void testRestApiCadastroAcesso() throws JsonProcessingException, Exception {
 		
 	    DefaultMockMvcBuilder builder = MockMvcBuilders.webAppContextSetup(this.wac);
@@ -69,8 +70,8 @@ public class AcessoTest extends TestCase {
 	}
 	
 	/*TESTE END-POINT DELETAR*/
-	//@Test
-	@Ignore
+	@Test
+	//@Ignore
 	public void testRestApiDeleteAcesso() throws JsonProcessingException, Exception {
 		
 	    DefaultMockMvcBuilder builder = MockMvcBuilders.webAppContextSetup(this.wac);
@@ -101,8 +102,8 @@ public class AcessoTest extends TestCase {
 	    
 	}
 	
-	//@Test
-	@Ignore
+	@Test
+	//@Ignore
 	public void testRestApiDeletePorIDAcesso() throws JsonProcessingException, Exception {
 		
 	    DefaultMockMvcBuilder builder = MockMvcBuilders.webAppContextSetup(this.wac);
@@ -164,12 +165,48 @@ public class AcessoTest extends TestCase {
 	
 	
 	
-	
+	@Test
+	public void testRestApiObterAcessoDesc() throws JsonProcessingException, Exception {
+		
+	    DefaultMockMvcBuilder builder = MockMvcBuilders.webAppContextSetup(this.wac);
+	    MockMvc mockMvc = builder.build();
+	    
+	    Acesso acesso = new Acesso();
+	    
+	    acesso.setDescricao("ROLE_TESTE_OBTER_LIST");
+	    
+	    acesso = acessoRepository.save(acesso);
+	    
+	    ObjectMapper objectMapper = new ObjectMapper();
+	    
+	    ResultActions retornoApi = mockMvc
+	    						 .perform(MockMvcRequestBuilders.get("/buscarPorDesc/OBTER_LIST")
+	    						 .content(objectMapper.writeValueAsString(acesso))
+	    						 .accept(MediaType.APPLICATION_JSON)
+	    						 .contentType(MediaType.APPLICATION_JSON));
+	    
+	    assertEquals(200, retornoApi.andReturn().getResponse().getStatus());
+	    
+	    
+	    List<Acesso> retornoApiList = objectMapper.
+			     readValue(retornoApi.andReturn()
+					.getResponse().getContentAsString(),
+					 new TypeReference<List<Acesso>>() {
+					});
+
+	    assertEquals(1, retornoApiList.size());
+	    
+	    assertEquals(acesso.getDescricao(), retornoApiList.get(0).getDescricao());
+	    
+	    
+	    acessoRepository.deleteById(acesso.getId());
+	    
+	}
 	
 	
 
-	//@Test
-	@Ignore
+	@Test
+	//@Ignore
 	public void saveTest() {
 
 		Acesso acesso = new Acesso();
