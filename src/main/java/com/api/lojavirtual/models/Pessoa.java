@@ -35,6 +35,8 @@ public abstract class Pessoa implements Serializable{
 	private String email;
 	@Column(nullable = false)
 	private String telefone;
+	@Column(nullable = false)
+	private String tipoPessoa; /*CLIENTE, USUARIO, SECRETARIO, GERENTE*/
 	
 	@OneToMany(mappedBy = "pessoa", orphanRemoval = true, cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 	private List<Endereco> enderecos = new ArrayList<>();
@@ -44,11 +46,12 @@ public abstract class Pessoa implements Serializable{
 	public Pessoa() {
 	}
 
-	public Pessoa(Long id, String nome, String email, String telefone) {
+	public Pessoa(Long id, String nome, String email, String telefone, String tipoPessoa) {
 		this.id = id;
 		this.nome = nome;
 		this.email = email;
 		this.telefone = telefone;
+		this.tipoPessoa = tipoPessoa;
 	}
 
 	/* Accessor Methods */
@@ -84,6 +87,12 @@ public abstract class Pessoa implements Serializable{
 	public void setTelefone(String telefone) {
 		this.telefone = telefone;
 	}
+	public String getTipoPessoa() {
+		return tipoPessoa;
+	}
+	public void setTipoPessoa(String tipoPessoa) {
+		this.tipoPessoa = tipoPessoa;
+	}
 	public List<Endereco> getEnderecos() {
 		return enderecos;
 	}
@@ -93,8 +102,8 @@ public abstract class Pessoa implements Serializable{
 
 	@Override
 	public String toString() {
-		return "Pessoa [id=" + id + ", nome=" + nome + ", email=" + email + ", telefone=" + telefone + ", enderecos="
-				+ enderecos + "]";
+		return "Pessoa [id=" + id + ", nome=" + nome + ", email=" + email + ", telefone=" + telefone + ", tipoPessoa="
+				+ tipoPessoa + ", enderecos=" + enderecos + "]";
 	}
 
 	@Override
