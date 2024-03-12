@@ -10,7 +10,7 @@ import org.springframework.stereotype.Repository;
 
 import com.api.lojavirtual.models.Acesso;
 
-@Repository
+
 @Transactional
 public interface AcessoRepository extends JpaRepository<Acesso, Long>{
 	
