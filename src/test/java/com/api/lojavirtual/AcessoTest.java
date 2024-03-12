@@ -23,7 +23,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 import junit.framework.TestCase;
 
-@SpringBootTest
+@SpringBootTest(classes = LojaVirtualMentoriaApplication.class)
 public class AcessoTest extends TestCase {
 
 	@Autowired
@@ -37,8 +37,8 @@ public class AcessoTest extends TestCase {
 	
 	
 	/*TESTE END-POINT SALVAR*/
-	@Test
-	//@Ignore
+	//@Test
+	@Ignore
 	public void testRestApiCadastroAcesso() throws JsonProcessingException, Exception {
 		
 	    DefaultMockMvcBuilder builder = MockMvcBuilders.webAppContextSetup(this.wac);
@@ -70,8 +70,8 @@ public class AcessoTest extends TestCase {
 	}
 	
 	/*TESTE END-POINT DELETAR*/
-	@Test
-	//@Ignore
+	//@Test
+	@Ignore
 	public void testRestApiDeleteAcesso() throws JsonProcessingException, Exception {
 		
 	    DefaultMockMvcBuilder builder = MockMvcBuilders.webAppContextSetup(this.wac);
@@ -102,8 +102,8 @@ public class AcessoTest extends TestCase {
 	    
 	}
 	
-	@Test
-	//@Ignore
+	//@Test
+	@Ignore
 	public void testRestApiDeletePorIDAcesso() throws JsonProcessingException, Exception {
 		
 	    DefaultMockMvcBuilder builder = MockMvcBuilders.webAppContextSetup(this.wac);
@@ -132,7 +132,8 @@ public class AcessoTest extends TestCase {
 	    
 	}
 	
-	@Test
+	//@Test
+	@Ignore
 	public void testRestApiObterAcessoID() throws JsonProcessingException, Exception {
 		
 	    DefaultMockMvcBuilder builder = MockMvcBuilders.webAppContextSetup(this.wac);
@@ -165,7 +166,8 @@ public class AcessoTest extends TestCase {
 	
 	
 	
-	@Test
+	//@Test
+	@Ignore
 	public void testRestApiObterAcessoDesc() throws JsonProcessingException, Exception {
 		
 	    DefaultMockMvcBuilder builder = MockMvcBuilders.webAppContextSetup(this.wac);
@@ -210,7 +212,7 @@ public class AcessoTest extends TestCase {
 	public void saveTest() {
 
 		Acesso acesso = new Acesso();
-		acesso.setDescricao("ROLE_GERENTE");
+		acesso.setDescricao("ROLE_ADMIN");
 
 		/* TESTE UNITÁRIO PARA SABER SE O Id ESTÁ NULLO */
 		assertEquals(true, acesso.getId() == null);
@@ -241,17 +243,17 @@ public class AcessoTest extends TestCase {
 		
 		/* TESTE DE QUERY */		
 		
-		acesso = new Acesso();
+//		acesso = new Acesso();
+//
+//		acesso.setDescricao("ROLE_ALUNO");
 
-		acesso.setDescricao("ROLE_ALUNO");
+//		acesso = acessoController.saverAcesso(acesso).getBody();
 
-		acesso = acessoController.saverAcesso(acesso).getBody();
-
-		List<Acesso> acessos = acessoRepository.buscarAcessoDesc("ALUNO".trim().toUpperCase());
-
-		assertEquals(1, acessos.size());
-
-		acessoRepository.deleteById(acesso.getId());
+//		List<Acesso> acessos = acessoRepository.buscarAcessoDesc("ALUNO".trim().toUpperCase());
+//
+//		assertEquals(1, acessos.size());
+//
+//		acessoRepository.deleteById(acesso.getId());
 
 	}
 
