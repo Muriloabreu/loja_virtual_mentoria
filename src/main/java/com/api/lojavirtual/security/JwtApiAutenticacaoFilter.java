@@ -19,7 +19,7 @@ public class JwtApiAutenticacaoFilter extends GenericFilterBean {
 	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain)
 			throws IOException, ServletException {
 		
-		/*Estabele a autenticao do user*/
+		/*Estabelece a autenticao do user*/
 		
 		Authentication authentication = new JWTTokenAutenticacaoService().
 				getAuthetication((HttpServletRequest) request, (HttpServletResponse) response);
