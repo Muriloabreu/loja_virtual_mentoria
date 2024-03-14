@@ -5,8 +5,11 @@ import java.util.Date;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import io.jsonwebtoken.ExpiredJwtException;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
+import io.jsonwebtoken.SignatureException;
 
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -21,7 +24,7 @@ import com.api.lojavirtual.repositories.UsuarioRepository;
 @Component
 public class JWTTokenAutenticacaoService {
 	
-	/* Tem de validade do Token 2 dias */
+	/* Tem de validade do Token 2 dias 172800000 */
 	private static final long EXPIRATION_TIME = 172800000;
 	
 	/* Uma senha unica para compor a autenticacao e ajudar com o JWT */
@@ -56,9 +59,11 @@ public class JWTTokenAutenticacaoService {
 	
 	
 	/*Retorna o usuário validado com token ou caso nao seja valido retona null*/
-	public Authentication getAuthetication(HttpServletRequest request, HttpServletResponse response) {
+	public Authentication getAuthetication(HttpServletRequest request, HttpServletResponse response) throws IOException {
 		
 		String token = request.getHeader(HEADER_STRING);
+		
+		try {
 		
 		if (token != null) {
 			
@@ -85,6 +90,19 @@ public class JWTTokenAutenticacaoService {
 				
 			}
 			
+		}
+		
+		}catch (SignatureException e) {
+			
+			response.getWriter().write("Token está Inválido");
+			
+		} catch (ExpiredJwtException e) {
+
+			response.getWriter().write("Token está Expirado, efetue o Login novamente!");
+		
+		} finally {
+			
+			liberacaoCors(response);
 		}
 		
 		liberacaoCors(response);
