@@ -33,7 +33,7 @@ public class JwtApiAutenticacaoFilter extends GenericFilterBean {
 		} catch (Exception e) {
 
 			e.printStackTrace();
-			response.getWriter().write("Ocorreu um erro no Sistema! Contate o administrador: " + e.getMessage());
+			response.getWriter().write("Ocorreu um erro no Sistema! Contate o administrador: \n" + e.getMessage());
 		}
 
 	}
