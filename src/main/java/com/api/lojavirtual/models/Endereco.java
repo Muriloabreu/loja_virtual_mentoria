@@ -51,23 +51,34 @@ public class Endereco implements Serializable{
 	@Enumerated(EnumType.STRING)
 	private TipoEndereco tipoEndereco;
 	
+	@ManyToOne(targetEntity = Pessoa.class)
+	@JoinColumn(name = "empresa_id", nullable = false, 
+	foreignKey = @ForeignKey(value = ConstraintMode.CONSTRAINT, name = "empresa_id_fk"))
+	private Pessoa empresa;
+	
 	/* Constructor */
 	
 	public Endereco() {		
 	}
 
-	public Endereco(Long id, String ruaLogra, String cep, String numero, String bairro, String uf, String cidade,
-			Pessoa pessoa) {
+
+	public Endereco(Long id, String ruaLogra, String cep, String numero, String complemento, String bairro, String uf,
+			String cidade, Pessoa pessoa, TipoEndereco tipoEndereco, Pessoa empresa) {
 		
 		this.id = id;
 		this.ruaLogra = ruaLogra;
 		this.cep = cep;
 		this.numero = numero;
+		this.complemento = complemento;
 		this.bairro = bairro;
 		this.uf = uf;
 		this.cidade = cidade;
 		this.pessoa = pessoa;
+		this.tipoEndereco = tipoEndereco;
+		this.empresa = empresa;
 	}
+
+
 
 
 
@@ -142,13 +153,34 @@ public class Endereco implements Serializable{
 	public void setTipoEndereco(TipoEndereco tipoEndereco) {
 		this.tipoEndereco = tipoEndereco;
 	}
+	
+	public String getComplemento() {
+		return complemento;
+	}
+
+
+	public void setComplemento(String complemento) {
+		this.complemento = complemento;
+	}
+
+
+	public Pessoa getEmpresa() {
+		return empresa;
+	}
+
+
+	public void setEmpresa(Pessoa empresa) {
+		this.empresa = empresa;
+	}
+
 
 	@Override
 	public String toString() {
-		return "Endereco [id=" + id + ", ruaLogra=" + ruaLogra + ", cep=" + cep + ", numero=" + numero + ", bairro="
-				+ bairro + ", uf=" + uf + ", cidade=" + cidade + ", pessoa=" + pessoa + ", tipoEndereco=" + tipoEndereco
-				+ "]";
+		return "Endereco [id=" + id + ", ruaLogra=" + ruaLogra + ", cep=" + cep + ", numero=" + numero
+				+ ", complemento=" + complemento + ", bairro=" + bairro + ", uf=" + uf + ", cidade=" + cidade
+				+ ", pessoa=" + pessoa + ", tipoEndereco=" + tipoEndereco + ", empresa=" + empresa + "]";
 	}
+
 
 	@Override
 	public int hashCode() {
