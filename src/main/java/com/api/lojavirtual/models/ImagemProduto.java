@@ -38,18 +38,27 @@ public class ImagemProduto implements Serializable{
 	@JoinColumn(name = "produto_id", nullable = false, foreignKey = @ForeignKey(value = ConstraintMode.CONSTRAINT, name = "produto_fk") )
 	private Produto produto;
 	
+	@ManyToOne(targetEntity = Pessoa.class)
+	@JoinColumn(name = "empresa_id", nullable = false, 
+	foreignKey = @ForeignKey(value = ConstraintMode.CONSTRAINT, name = "empresa_id_fk"))
+	private Pessoa empresa;
+	
 	/* Constructor */
 	
 	public ImagemProduto() {
 	}
-
-	public ImagemProduto(Long id, String imagemOriginal, String imagemMiniaura, Produto produto) {
+	
+	public ImagemProduto(Long id, String imagemOriginal, String imagemMiniaura, Produto produto, Pessoa empresa) {
+		
 		this.id = id;
 		this.imagemOriginal = imagemOriginal;
 		this.imagemMiniaura = imagemMiniaura;
 		this.produto = produto;
+		this.empresa = empresa;
 	}
-	
+
+
+
 	/* Accessor Methods */
 
 	public Long getId() {
@@ -83,11 +92,18 @@ public class ImagemProduto implements Serializable{
 	public void setProduto(Produto produto) {
 		this.produto = produto;
 	}
+	public Pessoa getEmpresa() {
+		return empresa;
+	}
+	public void setEmpresa(Pessoa empresa) {
+		this.empresa = empresa;
+	}
+
 
 	@Override
 	public String toString() {
 		return "ImagemProduto [id=" + id + ", imagemOriginal=" + imagemOriginal + ", imagemMiniaura=" + imagemMiniaura
-				+ ", produto=" + produto + "]";
+				+ ", produto=" + produto + ", empresa=" + empresa + "]";
 	}
 
 	@Override
