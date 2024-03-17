@@ -72,15 +72,26 @@ public class VendaCompraLojaVirtual implements Serializable {
 	@Column(nullable = false)
 	@Temporal(TemporalType.DATE)
 	private Date dataEntrega;
+	
+	@ManyToOne(targetEntity = Pessoa.class)
+	@JoinColumn(name = "empresa_id", nullable = false, 
+	foreignKey = @ForeignKey(value = ConstraintMode.CONSTRAINT, name = "empresa_id_fk"))
+	private Pessoa empresa;
+	
+	/* Constructor */
 
 	public VendaCompraLojaVirtual() {
-		// TODO Auto-generated constructor stub
+		
 	}
-
+	
+	
+	
+	
 	public VendaCompraLojaVirtual(Long id, Pessoa pessoa, Endereco enderecoEntrega, Endereco enderecoCobranca,
 			BigDecimal valorTotal, BigDecimal valorDesconto, FormaPagamento formaPagamento,
 			NotaFiscalVenda notaFiscalVenda, CupDesc cupDesc, BigDecimal valorFret, Integer diaEntrega, Date dataVenda,
-			Date dataEntrega) {
+			Date dataEntrega, Pessoa empresa) {
+		
 		this.id = id;
 		this.pessoa = pessoa;
 		this.enderecoEntrega = enderecoEntrega;
@@ -94,7 +105,13 @@ public class VendaCompraLojaVirtual implements Serializable {
 		this.diaEntrega = diaEntrega;
 		this.dataVenda = dataVenda;
 		this.dataEntrega = dataEntrega;
+		this.empresa = empresa;
 	}
+
+
+
+
+	/* Accessor Methods */
 
 	public Long getId() {
 		return id;
@@ -199,6 +216,14 @@ public class VendaCompraLojaVirtual implements Serializable {
 	public void setDataEntrega(Date dataEntrega) {
 		this.dataEntrega = dataEntrega;
 	}
+	public Pessoa getEmpresa() {
+		return empresa;
+	}
+	public void setEmpresa(Pessoa empresa) {
+		this.empresa = empresa;
+	}
+
+
 
 	@Override
 	public String toString() {
@@ -206,8 +231,11 @@ public class VendaCompraLojaVirtual implements Serializable {
 				+ ", enderecoCobranca=" + enderecoCobranca + ", valorTotal=" + valorTotal + ", valorDesconto="
 				+ valorDesconto + ", formaPagamento=" + formaPagamento + ", notaFiscalVenda=" + notaFiscalVenda
 				+ ", cupDesc=" + cupDesc + ", valorFret=" + valorFret + ", diaEntrega=" + diaEntrega + ", dataVenda="
-				+ dataVenda + ", dataEntrega=" + dataEntrega + "]";
+				+ dataVenda + ", dataEntrega=" + dataEntrega + ", empresa=" + empresa + "]";
 	}
+
+
+
 
 	@Override
 	public int hashCode() {
