@@ -38,6 +38,11 @@ public class NotaItemProduto implements Serializable{
 	@JoinColumn(name = "nota_fiscal_compra_id", nullable = false, 
 	foreignKey = @ForeignKey(value = ConstraintMode.CONSTRAINT, name = "nota_fiscal_compra_fk") )
 	private NotaFiscalCompra notaFiscalCompra;
+	
+	@ManyToOne(targetEntity = Pessoa.class)
+	@JoinColumn(name = "empresa_id", nullable = false, 
+	foreignKey = @ForeignKey(value = ConstraintMode.CONSTRAINT, name = "empresa_id_fk"))
+	private Pessoa empresa;
 
 	
 	/* Constructor */
@@ -46,15 +51,20 @@ public class NotaItemProduto implements Serializable{
 		
 	}
 
-
-	public NotaItemProduto(Long id, Double quantidade, Produto produto, NotaFiscalCompra notaFiscalCompra) {
+	public NotaItemProduto(Long id, Double quantidade, Produto produto, NotaFiscalCompra notaFiscalCompra,
+			Pessoa empresa) {
+		
 		this.id = id;
 		this.quantidade = quantidade;
 		this.produto = produto;
 		this.notaFiscalCompra = notaFiscalCompra;
+		this.empresa = empresa;
 	}
 
-	
+
+
+
+
 	/* Accessor Methods */
 
 	public Long getId() {
@@ -95,14 +105,18 @@ public class NotaItemProduto implements Serializable{
 	public void setNotaFiscalCompra(NotaFiscalCompra notaFiscalCompra) {
 		this.notaFiscalCompra = notaFiscalCompra;
 	}
-
+	public Pessoa getEmpresa() {
+		return empresa;
+	}
+	public void setEmpresa(Pessoa empresa) {
+		this.empresa = empresa;
+	}
 
 	@Override
 	public String toString() {
 		return "NotaItemProduto [id=" + id + ", quantidade=" + quantidade + ", produto=" + produto
-				+ ", notaFiscalCompra=" + notaFiscalCompra + "]";
+				+ ", notaFiscalCompra=" + notaFiscalCompra + ", empresa=" + empresa + "]";
 	}
-
 
 	@Override
 	public int hashCode() {
