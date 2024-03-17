@@ -4,8 +4,12 @@ import java.io.Serializable;
 import java.util.Objects;
 
 import javax.persistence.Column;
+import javax.persistence.ConstraintMode;
 import javax.persistence.Entity;
+import javax.persistence.ForeignKey;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
@@ -21,16 +25,26 @@ public class CategoriaProduto implements Serializable {
 	@Column(name = "nome_desc", nullable = false)
 	private String nome_desc;
 	
+	@ManyToOne(targetEntity = Pessoa.class)
+	@JoinColumn(name = "empresa_id", nullable = false, 
+	foreignKey = @ForeignKey(value = ConstraintMode.CONSTRAINT, name = "empresa_id_fk"))
+	private Pessoa empresa;
+	
 	/* Constructor */
 
 	public CategoriaProduto() {
 	}
 
-	public CategoriaProduto(Long id, String nome_desc) {
+	
+	public CategoriaProduto(Long id, String nome_desc, Pessoa empresa) {
+		
 		this.id = id;
 		this.nome_desc = nome_desc;
+		this.empresa = empresa;
 	}
-	
+
+
+
 	/* Accessor Methods */
 
 	public Long getId() {
@@ -48,11 +62,18 @@ public class CategoriaProduto implements Serializable {
 	public void setNome_desc(String nome_desc) {
 		this.nome_desc = nome_desc;
 	}
+	public Pessoa getEmpresa() {
+		return empresa;
+	}
+	public void setEmpresa(Pessoa empresa) {
+		this.empresa = empresa;
+	}
 
 	@Override
 	public String toString() {
-		return "Categoria_Produto [id=" + id + ", nome_desc=" + nome_desc + "]";
+		return "CategoriaProduto [id=" + id + ", nome_desc=" + nome_desc + ", empresa=" + empresa + "]";
 	}
+
 
 	@Override
 	public int hashCode() {
