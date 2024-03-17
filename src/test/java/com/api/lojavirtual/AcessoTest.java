@@ -209,7 +209,7 @@ public class AcessoTest extends TestCase {
 
 	@Test
 	//@Ignore
-	public void saveTest() {
+	public void saveTest() throws ExceptionMentoriaJava {
 
 		Acesso acesso = new Acesso();
 		acesso.setDescricao("ROLE_ADMIN");
@@ -218,7 +218,7 @@ public class AcessoTest extends TestCase {
 		assertEquals(true, acesso.getId() == null);
 
 		/* GRAVOU NO BANCO */
-		acessoController.saverAcesso(acesso).getBody();
+		acessoController.salvarAcesso(acesso).getBody();
 
 		/* TESTE UNITÁRIO PARA SABER SE O Id ESTÁ NULLO */
 		assertEquals(true, acesso.getId() > 0);
