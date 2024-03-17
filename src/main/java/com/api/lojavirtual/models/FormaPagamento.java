@@ -5,10 +5,14 @@ import java.io.Serializable;
 import java.util.Objects;
 
 import javax.persistence.Column;
+import javax.persistence.ConstraintMode;
 import javax.persistence.Entity;
+import javax.persistence.ForeignKey;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
@@ -26,6 +30,10 @@ public class FormaPagamento implements Serializable{
 	private Long id;
 	@Column(nullable = false)
 	private String descricao; 
+	@ManyToOne(targetEntity = Pessoa.class)
+	@JoinColumn(name = "empresa_id", nullable = false, 
+	foreignKey = @ForeignKey(value = ConstraintMode.CONSTRAINT, name = "empresa_id_fk"))
+	private Pessoa empresa;
 	
 
 	/* Constructor */
@@ -33,11 +41,15 @@ public class FormaPagamento implements Serializable{
 	public FormaPagamento() {
 		
 	}
-	public FormaPagamento(Long id, String descricao) {
+	
+	public FormaPagamento(Long id, String descricao, Pessoa empresa) {
+		
 		this.id = id;
 		this.descricao = descricao;
+		this.empresa = empresa;
 	}
-	
+
+
 	/* Accessor Methods */
 	
 	public Long getId() {
@@ -52,12 +64,20 @@ public class FormaPagamento implements Serializable{
 	public void setDescricao(String descricao) {
 		this.descricao = descricao;
 	}
+	public Pessoa getEmpresa() {
+		return empresa;
+	}
+	public void setEmpresa(Pessoa empresa) {
+		this.empresa = empresa;
+	}
+	
 	
 	
 	@Override
 	public String toString() {
-		return "Acesso [id=" + id + ", descricao=" + descricao + "]";
+		return "FormaPagamento [id=" + id + ", descricao=" + descricao + ", empresa=" + empresa + "]";
 	}
+
 	@Override
 	public int hashCode() {
 		return Objects.hash(id);
