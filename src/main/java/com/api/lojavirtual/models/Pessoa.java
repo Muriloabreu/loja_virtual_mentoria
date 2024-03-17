@@ -7,13 +7,17 @@ import java.util.Objects;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
+import javax.persistence.ConstraintMode;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
+import javax.persistence.ForeignKey;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 
@@ -41,18 +45,30 @@ public abstract class Pessoa implements Serializable{
 	@OneToMany(mappedBy = "pessoa", orphanRemoval = true, cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 	private List<Endereco> enderecos = new ArrayList<>();
 	
+	@ManyToOne(targetEntity = Pessoa.class)
+	@JoinColumn(name = "empresa_id", nullable = false, 
+	foreignKey = @ForeignKey(value = ConstraintMode.CONSTRAINT, name = "empresa_id_fk"))
+	private Pessoa empresa;
+	
 	/* Constructor */
 	
 	public Pessoa() {
 	}
 
-	public Pessoa(Long id, String nome, String email, String telefone, String tipoPessoa) {
+
+	public Pessoa(Long id, String nome, String email, String telefone, String tipoPessoa, List<Endereco> enderecos,
+			Pessoa empresa) {
+		
 		this.id = id;
 		this.nome = nome;
 		this.email = email;
 		this.telefone = telefone;
 		this.tipoPessoa = tipoPessoa;
+		this.enderecos = enderecos;
+		this.empresa = empresa;
 	}
+
+
 
 	/* Accessor Methods */
 	
@@ -99,12 +115,20 @@ public abstract class Pessoa implements Serializable{
 	public void setEnderecos(List<Endereco> enderecos) {
 		this.enderecos = enderecos;
 	}
+	public Pessoa getEmpresa() {
+		return empresa;
+	}
+	public void setEmpresa(Pessoa empresa) {
+		this.empresa = empresa;
+	}
+
 
 	@Override
 	public String toString() {
 		return "Pessoa [id=" + id + ", nome=" + nome + ", email=" + email + ", telefone=" + telefone + ", tipoPessoa="
-				+ tipoPessoa + ", enderecos=" + enderecos + "]";
+				+ tipoPessoa + ", enderecos=" + enderecos + ", empresa=" + empresa + "]";
 	}
+
 
 	@Override
 	public int hashCode() {
