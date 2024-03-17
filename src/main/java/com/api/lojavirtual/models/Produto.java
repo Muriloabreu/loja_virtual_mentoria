@@ -5,10 +5,14 @@ import java.math.BigDecimal;
 import java.util.Objects;
 
 import javax.persistence.Column;
+import javax.persistence.ConstraintMode;
 import javax.persistence.Entity;
+import javax.persistence.ForeignKey;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
@@ -29,6 +33,11 @@ public class Produto implements Serializable{
 	
 	@Column(columnDefinition = "text", length = 2000, nullable = false)
 	private String descricao;
+	
+	@ManyToOne(targetEntity = Pessoa.class)
+	@JoinColumn(name = "empresa_id", nullable = false, 
+	foreignKey = @ForeignKey(value = ConstraintMode.CONSTRAINT, name = "empresa_id_fk"))
+	private Pessoa empresa;
 	
 	/* Nota Item nota Produto ASSOCIAR*/
 	
@@ -62,14 +71,17 @@ public class Produto implements Serializable{
 		
 	}
 
+	
 
-	public Produto(Long id, String tipoUnidade, String nome, String descricao, Double peso, Double largura,
-			Double altura, Double profundidade, BigDecimal valorVenda, Integer qtdEstoque, Integer qtdAlertaEstoque,
-			String linkYoutube, Boolean alertaQtdEstoque, Integer qtdClique, Boolean ativo) {
+	public Produto(Long id, String tipoUnidade, String nome, String descricao, Pessoa empresa, Double peso,
+			Double largura, Double altura, Double profundidade, BigDecimal valorVenda, Integer qtdEstoque,
+			Integer qtdAlertaEstoque, String linkYoutube, Boolean alertaQtdEstoque, Boolean ativo, Integer qtdClique) {
+		
 		this.id = id;
 		this.tipoUnidade = tipoUnidade;
 		this.nome = nome;
 		this.descricao = descricao;
+		this.empresa = empresa;
 		this.peso = peso;
 		this.largura = largura;
 		this.altura = altura;
@@ -79,9 +91,11 @@ public class Produto implements Serializable{
 		this.qtdAlertaEstoque = qtdAlertaEstoque;
 		this.linkYoutube = linkYoutube;
 		this.alertaQtdEstoque = alertaQtdEstoque;
-		this.qtdClique = qtdClique;
 		this.ativo = ativo;
+		this.qtdClique = qtdClique;
 	}
+
+
 
 	/* Accessor Methods */
 
@@ -228,16 +242,23 @@ public class Produto implements Serializable{
 	}
 	public void setAtivo(Boolean ativo) {
 		this.ativo = ativo;
+	}	
+	public Pessoa getEmpresa() {
+		return empresa;
 	}
-
+	public void setEmpresa(Pessoa empresa) {
+		this.empresa = empresa;
+	}
+	
 	@Override
 	public String toString() {
 		return "Produto [id=" + id + ", tipoUnidade=" + tipoUnidade + ", nome=" + nome + ", descricao=" + descricao
-				+ ", peso=" + peso + ", largura=" + largura + ", altura=" + altura + ", profundidade=" + profundidade
-				+ ", valorVenda=" + valorVenda + ", qtdEstoque=" + qtdEstoque + ", qtdAlertaEstoque=" + qtdAlertaEstoque
-				+ ", linkYoutube=" + linkYoutube + ", alertaQtdEstoque=" + alertaQtdEstoque + ", ativo=" + ativo
-				+ ", qtdClique=" + qtdClique + "]";
+				+ ", empresa=" + empresa + ", peso=" + peso + ", largura=" + largura + ", altura=" + altura
+				+ ", profundidade=" + profundidade + ", valorVenda=" + valorVenda + ", qtdEstoque=" + qtdEstoque
+				+ ", qtdAlertaEstoque=" + qtdAlertaEstoque + ", linkYoutube=" + linkYoutube + ", alertaQtdEstoque="
+				+ alertaQtdEstoque + ", ativo=" + ativo + ", qtdClique=" + qtdClique + "]";
 	}
+
 
 
 	@Override
