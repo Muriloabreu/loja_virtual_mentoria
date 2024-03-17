@@ -25,12 +25,21 @@ public class AcessoController {
 	
 	@Autowired
 	AcessoService acessoService;
+	
 	@Autowired
 	AcessoRepository acessoRepository;
 	
 	@ResponseBody
 	@PostMapping(value = "/salvarAcesso")
-	public ResponseEntity<Acesso>  saverAcesso(@RequestBody Acesso acesso) {
+	public ResponseEntity<Acesso>  salvarAcesso(@RequestBody Acesso acesso) throws ExceptionMentoriaJava {
+		
+		if (acesso.getId() == null) {
+			  List<Acesso> acessos = acessoRepository.buscarAcessoDesc(acesso.getDescricao().toUpperCase());
+			  
+			  if (!acessos.isEmpty()) {
+				  throw new ExceptionMentoriaJava("Já existe Acesso com a descrição: " + acesso.getDescricao());
+			  }
+			}
 		
 		Acesso acessoSalvo = acessoService.save(acesso);
 		
