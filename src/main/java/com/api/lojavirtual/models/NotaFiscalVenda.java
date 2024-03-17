@@ -11,6 +11,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
@@ -43,6 +44,10 @@ public class NotaFiscalVenda implements Serializable{
 	foreignKey = @ForeignKey(value = ConstraintMode.CONSTRAINT, name = "venda_compra_loja_virt_fk") )
 	private VendaCompraLojaVirtual vendaCompraLojaVirtual;
 	
+	@ManyToOne(targetEntity = Pessoa.class)
+	@JoinColumn(name = "empresa_id", nullable = false, 
+	foreignKey = @ForeignKey(value = ConstraintMode.CONSTRAINT, name = "empresa_id_fk"))
+	private Pessoa empresa;
 	
 	/* Constructor */
 	
@@ -50,7 +55,7 @@ public class NotaFiscalVenda implements Serializable{
 	}
 	
 	public NotaFiscalVenda(Long id, String numero, String serie, String tipo, String xml, String pdf,
-			VendaCompraLojaVirtual vendaCompraLojaVirtual) {
+			VendaCompraLojaVirtual vendaCompraLojaVirtual, Pessoa empresa) {
 		this.id = id;
 		this.numero = numero;
 		this.serie = serie;
@@ -58,6 +63,7 @@ public class NotaFiscalVenda implements Serializable{
 		this.xml = xml;
 		this.pdf = pdf;
 		this.vendaCompraLojaVirtual = vendaCompraLojaVirtual;
+		this.empresa = empresa;
 	}
 
 
@@ -117,11 +123,19 @@ public class NotaFiscalVenda implements Serializable{
 	public void setVendaCompraLojaVirtual(VendaCompraLojaVirtual vendaCompraLojaVirtual) {
 		this.vendaCompraLojaVirtual = vendaCompraLojaVirtual;
 	}
+	public Pessoa getEmpresa() {
+		return empresa;
+	}
+	public void setEmpresa(Pessoa empresa) {
+		this.empresa = empresa;
+	}
+
 
 	@Override
 	public String toString() {
 		return "NotaFiscalVenda [id=" + id + ", numero=" + numero + ", serie=" + serie + ", tipo=" + tipo + ", xml="
-				+ xml + ", pdf=" + pdf + ", vendaCompraLojaVirtual=" + vendaCompraLojaVirtual + "]";
+				+ xml + ", pdf=" + pdf + ", vendaCompraLojaVirtual=" + vendaCompraLojaVirtual + ", empresa=" + empresa
+				+ "]";
 	}
 
 	@Override
