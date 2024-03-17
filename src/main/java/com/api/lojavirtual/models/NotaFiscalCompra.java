@@ -56,6 +56,11 @@ public class NotaFiscalCompra implements Serializable {
 	foreignKey = @ForeignKey(value = ConstraintMode.CONSTRAINT, name = "conta_pagar_fk"))
 	private ContaPagar contaPagar;
 	
+	@ManyToOne(targetEntity = Pessoa.class)
+	@JoinColumn(name = "empresa_id", nullable = false, 
+	foreignKey = @ForeignKey(value = ConstraintMode.CONSTRAINT, name = "empresa_id_fk"))
+	private Pessoa empresa;
+	
 	/* Constructor */
 	
 	
@@ -63,7 +68,7 @@ public class NotaFiscalCompra implements Serializable {
 	}
 
 	public NotaFiscalCompra(Long id, String numeroNota, String serieNota, String descricaoObs, BigDecimal valorTotal,
-			BigDecimal valorDesconto, BigDecimal valorIcms, Date dataCompra, Pessoa pessoa, ContaPagar contaPagar) {
+			BigDecimal valorDesconto, BigDecimal valorIcms, Date dataCompra, Pessoa pessoa, ContaPagar contaPagar, Pessoa empresa) {
 		this.id = id;
 		this.numeroNota = numeroNota;
 		this.serieNota = serieNota;
@@ -74,6 +79,7 @@ public class NotaFiscalCompra implements Serializable {
 		this.dataCompra = dataCompra;
 		this.pessoa = pessoa;
 		this.contaPagar = contaPagar;
+		this.empresa = empresa;
 	}
 	
 	/* Accessor Methods */
@@ -157,13 +163,20 @@ public class NotaFiscalCompra implements Serializable {
 	public void setContaPagar(ContaPagar contaPagar) {
 		this.contaPagar = contaPagar;
 	}
+	public Pessoa getEmpresa() {
+		return empresa;
+	}
+	public void setEmpresa(Pessoa empresa) {
+		this.empresa = empresa;
+	}
+
 
 	@Override
 	public String toString() {
 		return "NotaFiscalCompra [id=" + id + ", numeroNota=" + numeroNota + ", serieNota=" + serieNota
 				+ ", descricaoObs=" + descricaoObs + ", valorTotal=" + valorTotal + ", valorDesconto=" + valorDesconto
 				+ ", valorIcms=" + valorIcms + ", dataCompra=" + dataCompra + ", pessoa=" + pessoa + ", contaPagar="
-				+ contaPagar + "]";
+				+ contaPagar + ", empresa=" + empresa + "]";
 	}
 
 	@Override
