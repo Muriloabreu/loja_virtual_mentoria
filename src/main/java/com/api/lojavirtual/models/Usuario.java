@@ -51,6 +51,11 @@ public class Usuario implements UserDetails{
 	foreignKey = @ForeignKey(value = ConstraintMode.CONSTRAINT, name = "paessoa_fk"))
 	private Pessoa pessoa;
 	
+	@ManyToOne(targetEntity = Pessoa.class)
+	@JoinColumn(name = "empresa_id", nullable = false, 
+	foreignKey = @ForeignKey(value = ConstraintMode.CONSTRAINT, name = "empresa_id_fk"))
+	private Pessoa empresa;
+	
 	/* - FetchType.LAZY só carrega os dados quando precisar */
 	@OneToMany(fetch = FetchType.EAGER)
 	@JoinTable(name = "usuarios_acesso", uniqueConstraints = @UniqueConstraint(
@@ -63,6 +68,35 @@ public class Usuario implements UserDetails{
 	private List<Acesso> acessos;
 	
 	
+	/* Constructor */
+	
+	public Usuario() {
+		
+	}	
+
+	public Usuario(Long id, String login, String senha, Date dataAtualSenha, Pessoa pessoa, Pessoa empresa,
+			List<Acesso> acessos) {
+		
+		this.id = id;
+		this.login = login;
+		this.senha = senha;
+		this.dataAtualSenha = dataAtualSenha;
+		this.pessoa = pessoa;
+		this.empresa = empresa;
+		this.acessos = acessos;
+	}
+
+
+
+	/* Accessor Methods */
+	
+	public Pessoa getEmpresa() {
+		return empresa;
+	}
+	
+	public void setEmpresa(Pessoa empresa) {
+		this.empresa = empresa;
+	}
 	
 	public Long getId() {
 		return id;
