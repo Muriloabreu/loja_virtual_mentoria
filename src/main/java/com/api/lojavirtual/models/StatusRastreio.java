@@ -1,11 +1,16 @@
 package com.api.lojavirtual.models;
 
 import java.io.Serializable;
+import java.util.Objects;
 
+import javax.persistence.ConstraintMode;
 import javax.persistence.Entity;
+import javax.persistence.ForeignKey;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
@@ -28,23 +33,31 @@ public class StatusRastreio implements Serializable{
 	
 	private String status;
 	
+	@ManyToOne(targetEntity = Pessoa.class)
+	@JoinColumn(name = "empresa_id", nullable = false, 
+	foreignKey = @ForeignKey(value = ConstraintMode.CONSTRAINT, name = "empresa_id_fk"))
+	private Pessoa empresa;
+	
 	/* Constructor */
 	
 	
 	public StatusRastreio() {
 		
 	}
-
-
-	public StatusRastreio(Long id, String centroDistribuicao, String cidade, String estado, String status) {
+	
+	public StatusRastreio(Long id, String centroDistribuicao, String cidade, String estado, String status,
+			Pessoa empresa) {
+		
 		this.id = id;
 		this.centroDistribuicao = centroDistribuicao;
 		this.cidade = cidade;
 		this.estado = estado;
 		this.status = status;
+		this.empresa = empresa;
 	}
 
-	
+
+
 	/* Accessor Methods */
 
 	public Long getId() {
@@ -94,6 +107,36 @@ public class StatusRastreio implements Serializable{
 
 	public void setStatus(String status) {
 		this.status = status;
+	}
+	
+	public Pessoa getEmpresa() {
+		return empresa;
+	}
+	public void setEmpresa(Pessoa empresa) {
+		this.empresa = empresa;
+	}
+
+	@Override
+	public String toString() {
+		return "StatusRastreio [id=" + id + ", centroDistribuicao=" + centroDistribuicao + ", cidade=" + cidade
+				+ ", estado=" + estado + ", status=" + status + ", empresa=" + empresa + "]";
+	}
+
+	@Override
+	public int hashCode() {
+		return Objects.hash(id);
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		StatusRastreio other = (StatusRastreio) obj;
+		return Objects.equals(id, other.id);
 	}
 	
 	
