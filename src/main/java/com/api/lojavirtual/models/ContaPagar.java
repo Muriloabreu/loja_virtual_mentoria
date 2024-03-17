@@ -66,6 +66,11 @@ public class ContaPagar implements Serializable{
 	foreignKey = @ForeignKey(value = ConstraintMode.CONSTRAINT, name = "pessoa_forn_fk") )
 	private Pessoa pessoaFornecedor;
 	
+	@ManyToOne(targetEntity = Pessoa.class)
+	@JoinColumn(name = "empresa_id", nullable = false, 
+	foreignKey = @ForeignKey(value = ConstraintMode.CONSTRAINT, name = "empresa_id_fk"))
+	private Pessoa empresa;
+	
 	
 	
 	/* Constructor */
@@ -73,9 +78,9 @@ public class ContaPagar implements Serializable{
 	public ContaPagar() {		
 	}
 
-
 	public ContaPagar(Long id, String descricao, StatusContaPagar status, Date dtVencimento, Date dtPagamento,
-			BigDecimal valorTotal, BigDecimal valorDesconto, Pessoa pessoa, Pessoa pessoaFornecedor) {
+			BigDecimal valorTotal, BigDecimal valorDesconto, Pessoa pessoa, Pessoa pessoaFornecedor, Pessoa empresa) {
+		
 		this.id = id;
 		this.descricao = descricao;
 		this.status = status;
@@ -85,8 +90,8 @@ public class ContaPagar implements Serializable{
 		this.valorDesconto = valorDesconto;
 		this.pessoa = pessoa;
 		this.pessoaFornecedor = pessoaFornecedor;
+		this.empresa = empresa;
 	}
-
 
 
 
@@ -170,15 +175,22 @@ public class ContaPagar implements Serializable{
 	public void setPessoaFornecedor(Pessoa pessoaFornecedor) {
 		this.pessoaFornecedor = pessoaFornecedor;
 	}
+	
+	public Pessoa getEmpresa() {
+		return empresa;
+	}
+	public void setEmpresa(Pessoa empresa) {
+		this.empresa = empresa;
+	}
 
 
 	@Override
 	public String toString() {
 		return "ContaPagar [id=" + id + ", descricao=" + descricao + ", status=" + status + ", dtVencimento="
 				+ dtVencimento + ", dtPagamento=" + dtPagamento + ", valorTotal=" + valorTotal + ", valorDesconto="
-				+ valorDesconto + ", pessoa=" + pessoa + ", pessoaFornecedor=" + pessoaFornecedor + "]";
+				+ valorDesconto + ", pessoa=" + pessoa + ", pessoaFornecedor=" + pessoaFornecedor + ", empresa="
+				+ empresa + "]";
 	}
-
 
 	@Override
 	public int hashCode() {
