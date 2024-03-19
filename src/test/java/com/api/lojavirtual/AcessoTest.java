@@ -1,5 +1,6 @@
 package com.api.lojavirtual;
 
+import java.util.Calendar;
 import java.util.List;
 
 import org.junit.Ignore;
@@ -37,8 +38,8 @@ public class AcessoTest extends TestCase {
 	
 	
 	/*TESTE END-POINT SALVAR*/
-	//@Test
-	@Ignore
+	@Test
+	//@Ignore
 	public void testRestApiCadastroAcesso() throws JsonProcessingException, Exception {
 		
 	    DefaultMockMvcBuilder builder = MockMvcBuilders.webAppContextSetup(this.wac);
@@ -46,7 +47,7 @@ public class AcessoTest extends TestCase {
 	    
 	    Acesso acesso = new Acesso();
 	    
-	    acesso.setDescricao("ROLE_COMPRADOR");
+	    acesso.setDescricao("ROLE_COMPRADOR" + Calendar.getInstance().getTimeInMillis());
 	    
 	    ObjectMapper objectMapper = new ObjectMapper();
 	    
@@ -70,8 +71,8 @@ public class AcessoTest extends TestCase {
 	}
 	
 	/*TESTE END-POINT DELETAR*/
-	//@Test
-	@Ignore
+	@Test
+	//@Ignore
 	public void testRestApiDeleteAcesso() throws JsonProcessingException, Exception {
 		
 	    DefaultMockMvcBuilder builder = MockMvcBuilders.webAppContextSetup(this.wac);
@@ -102,8 +103,8 @@ public class AcessoTest extends TestCase {
 	    
 	}
 	
-	//@Test
-	@Ignore
+	@Test
+	//@Ignore
 	public void testRestApiDeletePorIDAcesso() throws JsonProcessingException, Exception {
 		
 	    DefaultMockMvcBuilder builder = MockMvcBuilders.webAppContextSetup(this.wac);
@@ -132,8 +133,8 @@ public class AcessoTest extends TestCase {
 	    
 	}
 	
-	//@Test
-	@Ignore
+	@Test
+	//@Ignore
 	public void testRestApiObterAcessoID() throws JsonProcessingException, Exception {
 		
 	    DefaultMockMvcBuilder builder = MockMvcBuilders.webAppContextSetup(this.wac);
@@ -166,8 +167,8 @@ public class AcessoTest extends TestCase {
 	
 	
 	
-	//@Test
-	@Ignore
+	@Test
+	//@Ignore
 	public void testRestApiObterAcessoDesc() throws JsonProcessingException, Exception {
 		
 	    DefaultMockMvcBuilder builder = MockMvcBuilders.webAppContextSetup(this.wac);
@@ -210,9 +211,11 @@ public class AcessoTest extends TestCase {
 	@Test
 	//@Ignore
 	public void saveTest() throws ExceptionMentoriaJava {
+		
+		String descacesso = "ROLE_ADMIN" + Calendar.getInstance().getTimeInMillis();
 
 		Acesso acesso = new Acesso();
-		acesso.setDescricao("ROLE_ADMIN");
+		acesso.setDescricao(descacesso);
 
 		/* TESTE UNITÁRIO PARA SABER SE O Id ESTÁ NULLO */
 		assertEquals(true, acesso.getId() == null);
@@ -224,7 +227,7 @@ public class AcessoTest extends TestCase {
 		assertEquals(true, acesso.getId() > 0);
 
 		/* TESTE UNITÁRIO PARA VALIDAR SE FOI SALVO DE FORMA CORRETA */
-		assertEquals("ROLE_GERENTE", acesso.getDescricao());
+		assertEquals(descacesso, acesso.getDescricao());
 
 		
 		/* TESTE DE CARREGAMENTO */		
