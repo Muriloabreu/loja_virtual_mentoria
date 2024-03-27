@@ -246,17 +246,17 @@ public class AcessoTest extends TestCase {
 		
 		/* TESTE DE QUERY */		
 		
-//		acesso = new Acesso();
-//
-//		acesso.setDescricao("ROLE_ALUNO");
+		acesso = new Acesso();
 
-//		acesso = acessoController.saverAcesso(acesso).getBody();
+		acesso.setDescricao("ROLE_ALUNO");
 
-//		List<Acesso> acessos = acessoRepository.buscarAcessoDesc("ALUNO".trim().toUpperCase());
-//
-//		assertEquals(1, acessos.size());
-//
-//		acessoRepository.deleteById(acesso.getId());
+		acesso = acessoController.salvarAcesso(acesso).getBody();
+
+		List<Acesso> acessos = acessoRepository.buscarAcessoDesc("ALUNO".trim().toUpperCase());
+
+		assertEquals(1, acessos.size());
+
+		acessoRepository.deleteById(acesso.getId());
 
 	}
 
