@@ -13,7 +13,7 @@ public class PessoaJuridica extends Pessoa {
 	private static final long serialVersionUID = 1L;
 	
 	@Column(nullable = false)
-	private String cnpf;
+	private String cnpj;
 	@Column(nullable = false)
 	private String inscEstadual;	
 	private String inscMunicipal;
@@ -26,11 +26,11 @@ public class PessoaJuridica extends Pessoa {
 	
 	/* Accessor Methods */
 	
-	public String getCnpf() {
-		return cnpf;
+	public String getCnpj() {
+		return cnpj;
 	}
-	public void setCnpf(String cnpf) {
-		this.cnpf = cnpf;
+	public void setCnpj(String cnpj) {
+		this.cnpj = cnpj;
 	}
 	public String getInscEstadual() {
 		return inscEstadual;
