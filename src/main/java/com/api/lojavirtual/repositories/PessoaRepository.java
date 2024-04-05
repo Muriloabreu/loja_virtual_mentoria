@@ -1,14 +1,17 @@
 package com.api.lojavirtual.repositories;
 
-import javax.transaction.Transactional;
 
-import org.springframework.data.jpa.repository.JpaRepository;
+
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.CrudRepository;
+import org.springframework.stereotype.Repository;
 
 import com.api.lojavirtual.models.PessoaJuridica;
 
-@Transactional
-public interface PessoaRepository extends JpaRepository<PessoaJuridica, Long>{
+@Repository
+public interface PessoaRepository extends CrudRepository<PessoaJuridica, Long> {
 	
-	
+	@Query(value = "select pj from PessoaJuridica pj where pj.cnpj = ?1")
+	public PessoaJuridica existeCnpjCadastrado(String cnpj);
 
 }
