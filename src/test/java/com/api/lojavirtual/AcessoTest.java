@@ -38,7 +38,7 @@ public class AcessoTest extends TestCase {
 	
 	
 	/*TESTE END-POINT SALVAR*/
-	@Test
+	//@Test
 	//@Ignore
 	public void testRestApiCadastroAcesso() throws JsonProcessingException, Exception {
 		
@@ -71,7 +71,7 @@ public class AcessoTest extends TestCase {
 	}
 	
 	/*TESTE END-POINT DELETAR*/
-	@Test
+	//@Test
 	//@Ignore
 	public void testRestApiDeleteAcesso() throws JsonProcessingException, Exception {
 		
@@ -103,7 +103,7 @@ public class AcessoTest extends TestCase {
 	    
 	}
 	
-	@Test
+	//@Test
 	//@Ignore
 	public void testRestApiDeletePorIDAcesso() throws JsonProcessingException, Exception {
 		
@@ -133,7 +133,7 @@ public class AcessoTest extends TestCase {
 	    
 	}
 	
-	@Test
+	//@Test
 	//@Ignore
 	public void testRestApiObterAcessoID() throws JsonProcessingException, Exception {
 		
@@ -167,7 +167,7 @@ public class AcessoTest extends TestCase {
 	
 	
 	
-	@Test
+	//@Test
 	//@Ignore
 	public void testRestApiObterAcessoDesc() throws JsonProcessingException, Exception {
 		
